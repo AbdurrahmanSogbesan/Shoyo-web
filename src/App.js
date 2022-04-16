@@ -1,23 +1,35 @@
-import logo from "./logo.svg";
+import React from "react";
+import DrinkCard from "./components/DrinkCard";
 import "./App.css";
 
 function App() {
+  const drinks = [
+    {
+      title: "Raspberry Kombucha",
+      backgroundColor: "#D4311B",
+      gradientColor: "pink",
+    },
+    {
+      title: "Greenapple Kombucha",
+      backgroundColor: "#2A9C0C",
+      gradientColor: "lightgreen",
+    },
+    {
+      title: "Lemonade Kombucha",
+      backgroundColor: "#BEB218",
+      gradientColor: "yellow",
+    },
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Testing
-        </a>
-      </header>
+    <div className="app">
+      {drinks.map((drink, index) => (
+        <DrinkCard
+          key={index}
+          title={drink.title}
+          backgroundColor={drink.backgroundColor}
+          gradientColor={drink.gradientColor}
+        />
+      ))}
     </div>
   );
 }
