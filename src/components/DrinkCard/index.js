@@ -11,11 +11,12 @@ function DrinkCard({ backgroundColor, gradientColor, title }) {
     >
       <span className="drinkTitle">{title}</span>
       <div className="backgroundCirlce"></div>
-      <img
-        className="drinkImage"
-        src="https://freepngimg.com/thumb/bottle/12-water-plastic-bottle-png-image.png"
-        alt="bottle"
-      />
+      <div className="drinkImage">
+        <img
+          src="https://freepngimg.com/thumb/bottle/12-water-plastic-bottle-png-image.png"
+          alt="bottle"
+        />
+      </div>
     </div>
   );
 }

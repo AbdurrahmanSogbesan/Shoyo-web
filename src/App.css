@@ -4,7 +4,34 @@ body {
 
 .app {
   margin: 0;
-  display: flex;
   height: 100vh;
-  overflow-x: scroll;
+}
+
+.slick-prev {
+  left: 20px !important;
+  z-index: 999 !important;
+}
+
+.slick-next {
+  right: 40px !important;
+  z-index: 999 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 40px !important;
+}
+
+.slick-dots {
+  bottom: 20px !important;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1 !important;
+  color: black !important;
+}
+
+.slick-dots li button:before {
+  opacity: 1 !important;
+  color: grey !important;
 }
