@@ -28,14 +28,20 @@
 .bm-menu-wrap {
   position: fixed;
   height: 100%;
+  width: 450px !important;
   background: whitesmoke;
 }
 
 /* General sidebar styles */
 .bm-menu {
   background: whitesmoke;
-  padding: 2.5em 1.5em 0;
+  padding: 0.7em 1.2em 0;
   font-size: 1.15em;
+  width: 100% !important;
+  scrollbar-width: none;
+}
+.bm-menu::-webkit-scrollbar {
+  display: none;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -46,9 +52,13 @@
 /* Wrapper for item list */
 .bm-item-list {
   color: #333;
-  padding: 0.8em;
+  left: 0 !important;
+  width: 100% !important;
+  scrollbar-width: none;
 }
-
+.bm-item-list::-webkit-scrollbar {
+  display: none;
+}
 /* Individual item */
 .bm-item {
   display: inline-block;
@@ -62,4 +72,10 @@
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 650px) {
+  .bm-menu-wrap {
+    width: 300px !important;
+  }
 }

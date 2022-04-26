@@ -5,7 +5,7 @@ import { elastic as Menu } from "react-burger-menu";
 import Icon from "../Icon/Icon";
 import { Badge, IconButton } from "@material-ui/core";
 
-function Sidebar({ badgeContent = 0 }) {
+function Sidebar({ badgeContent = 0, children }) {
   return (
     <Menu
       right
@@ -17,7 +17,7 @@ function Sidebar({ badgeContent = 0 }) {
         </IconButton>
       }
     >
-      <div>Hello</div>
+      {children}
     </Menu>
   );
 }

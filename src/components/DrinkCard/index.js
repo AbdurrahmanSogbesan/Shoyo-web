@@ -1,23 +1,18 @@
 import { Button, ButtonGroup } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import "./DrinkCard.css";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 import Bottle from "../../images/bottle.png";
 
-function DrinkCard({ backgroundColor, gradientColor, title, setTotal }) {
-  const [itemCount, setItemCount] = useState(0);
-  const handleAdd = () => {
-    setItemCount(itemCount + 1);
-  };
-  const handleSub = () => {
-    setItemCount(Math.max(itemCount - 1, 0));
-  };
-  const handleClick = () => {
-    setTotal((prevState) => prevState + itemCount);
-    setItemCount(0);
-  };
-
+function DrinkCard({
+  backgroundColor,
+  gradientColor,
+  title,
+  add,
+  subtract,
+  itemCount,
+}) {
   return (
     <div
       className="container"
@@ -32,21 +27,14 @@ function DrinkCard({ backgroundColor, gradientColor, title, setTotal }) {
       </div>
       <div className="cart">
         <ButtonGroup className="buttonGroup">
-          <Button
-            onClick={() => {
-              handleSub();
-            }}
-          >
+          <Button onClick={subtract}>
             <RemoveIcon fontSize="small" />
           </Button>
           <Button>{itemCount}</Button>
-          <Button onClick={() => handleAdd()}>
+          <Button onClick={add}>
             <AddIcon fontSize="small" />
           </Button>
         </ButtonGroup>
-        <Button variant="outlined" onClick={() => handleClick()}>
-          Add To Cart
-        </Button>
       </div>
     </div>
   );

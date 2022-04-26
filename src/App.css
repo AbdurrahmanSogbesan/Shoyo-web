@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Varela&display=swap");
+
 body {
   margin: 0;
+  font-family: "Varela", sans-serif;
 }
 
 .app {
@@ -34,4 +37,132 @@ body {
 .slick-dots li button:before {
   opacity: 1 !important;
   color: grey !important;
+}
+
+.sidebarChildren {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.cartList {
+  list-style: none;
+  padding-left: 0;
+  align-items: center;
+  max-height: 185px;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: 213px 200px;
+}
+.cartList::-webkit-scrollbar {
+  display: none;
+}
+
+.cartItems {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cartItem {
+  width: 100%;
+  margin-right: 10px;
+  background: lightblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: black;
+  font-size: 20px;
+  font-family: monospace;
+}
+
+.removeButton {
+  margin-left: 5px;
+  color: red;
+  z-index: 999;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+#items {
+  margin-top: 0;
+  padding-left: 18px;
+  display: grid;
+  grid-template-columns: 188px 200px;
+}
+
+input[type="text"] {
+  height: 35px;
+  font-size: 16px;
+  padding: 2px 15px;
+  margin-bottom: 10px;
+  border-radius: 0.25rem;
+  border: 1px solid #eaeaea;
+}
+
+textarea {
+  font-size: 16px;
+  padding: 2px 5px;
+  margin-bottom: 10px;
+  border-radius: 0.25rem;
+  border: 1px solid #eaeaea;
+  font-family: inherit;
+}
+
+label {
+  font-size: 18px;
+}
+
+.submitButton {
+  background: black;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  padding: 17px 68px;
+  border: none;
+  font-family: inherit;
+  width: 100%;
+  transition: all 1s ease 0s;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: white;
+  color: black;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+.submitButton:disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+@media (max-width: 650px) {
+  .cartList {
+    display: flex;
+    flex-direction: column;
+    max-height: 152px;
+  }
+  .cartItems:last-child {
+    margin-bottom: 0;
+  }
+  .cartItems {
+    width: 100%;
+  }
+  #items {
+    display: block;
+  }
 }
