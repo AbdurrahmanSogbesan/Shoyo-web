@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import DrinkCard from "./components/DrinkCard";
 import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Sidebar from "./components/Sidebar";
-import { useForm, ValidationError } from "@formspree/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useFormik } from "formik";
+import checkoutSchema from "./schemas/checkout";
+import { db } from "./firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { useEffect } from "react";
+import TextInput from "./components/TextInput";
+import emailjs from "@emailjs/browser";
 
 function App() {
   const drinks = [
@@ -96,8 +102,113 @@ function App() {
       },
     ],
   };
+
+  const inputData = [
+    {
+      label: "Full Name",
+      htmlFor: "fname",
+      id: "fname",
+      name: "fullName",
+      value: "fullName",
+      placeholder: "John M. Doe",
+    },
+    {
+      label: "Email",
+      htmlFor: "email",
+      id: "email",
+      name: "email",
+      value: "email",
+      placeholder: "john@example.com",
+    },
+    {
+      label: "Phone Number",
+      htmlFor: "number",
+      id: "number",
+      name: "phone",
+      value: "phone",
+      placeholder: "+2349174041321",
+    },
+    {
+      label: "Address",
+      htmlFor: "address",
+      id: "address",
+      name: "address",
+      value: "address",
+      placeholder: "542 W. 15th Street",
+    },
+  ];
   const [cart, setCart] = useState([]);
-  const [state, handleSubmit] = useForm("mjvladnl");
+  const form = useRef();
+
+  const checkoutInitialValues = {
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+    instructions: "",
+    items: [],
+  };
+
+  const sendOrder = async (values) => {
+    await addDoc(collection(db, "orders"), values);
+  };
+
+  const sendEmail = (obj) => {
+    emailjs
+      .send("service_p2w9bmj", "template_pmcqbuj", obj, "OQMKfs-HjMH1yclVU")
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert("Email Js works");
+        },
+        (error) => {
+          console.log(error.text);
+          alert("Email Js doesnt works");
+        }
+      );
+  };
+
+  const formik = useFormik({
+    initialValues: checkoutInitialValues,
+    validationSchema: checkoutSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+      const item = values.items.map((item) => `${item.name} - ${item.qty}`);
+      try {
+        sendOrder(values);
+        sendEmail({
+          ...values,
+          instruction: values["instructions"],
+          items: item.map((item) => item),
+        });
+
+        cart.length = 0;
+        toast.success(
+          "Order Successful!",
+          { position: toast.POSITION.TOP_CENTER },
+          { autoClose: 10000 }
+        );
+        toast.clearWaitingQueue();
+        formik.resetForm();
+      } catch (error) {
+        toast.error(
+          error,
+          { position: toast.POSITION.TOP_CENTER },
+          { autoClose: 10000 }
+        );
+      }
+      setSubmitting(false);
+    },
+  });
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      formik.setFieldValue("items", cart);
+    }
+  }, [cart]);
+
+  const { errors, values, setFieldValue, touched, handleBlur, handleSubmit } =
+    formik;
 
   const sum = cart.reduce((accumulator, object) => {
     return accumulator + object.qty;
@@ -106,8 +217,8 @@ function App() {
   const addToCart = (drinkId, drinkName) => {
     const drinkInCartIndex = cart.findIndex((c) => c.id === drinkId);
     const newCart = cart.slice();
+    const drinkInCart = cart[drinkInCartIndex];
     if (drinkInCartIndex >= 0) {
-      const drinkInCart = cart[drinkInCartIndex];
       drinkInCart.qty += 1;
       newCart[drinkInCartIndex] = drinkInCart;
     } else {
@@ -141,17 +252,6 @@ function App() {
     setCart(filteredCart);
   };
 
-  if (state.succeeded) {
-    toast.success(
-      "Order Successful!",
-      { position: toast.POSITION.TOP_CENTER },
-      { autoClose: 10000 }
-    );
-    toast.clearWaitingQueue();
-    document.querySelector(".form").reset();
-    cart.length = 0;
-  }
-
   return (
     <div className="app" id="outer-container">
       <Sidebar
@@ -180,89 +280,57 @@ function App() {
             })}
           </ul>
           <h2>Checkout</h2>
-          <form className="form" onSubmit={handleSubmit}>
-            <label htmlFor="fname">Full Name</label>
-            <input
-              type="text"
-              id="fname"
-              name="Full Name"
-              placeholder="John M. Doe"
-            />
-            <ValidationError
-              prefix="Fname"
-              field="fname"
-              errors={state.errors}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="Email"
-              placeholder="john@example.com"
-            ></input>
-            <ValidationError
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-            />
-            <label htmlFor="number">Phone number</label>
-            <input
-              type="text"
-              id="number"
-              name="Phone Number"
-              placeholder="+2349174041321"
-            ></input>
-            <ValidationError
-              prefix="Number"
-              field="number"
-              errors={state.errors}
-            />
-            <label htmlFor="adr">Address</label>
-            <input
-              type="text"
-              id="adr"
-              name="Address"
-              placeholder="542 W. 15th Street"
-            />
-            <ValidationError
-              prefix="Address"
-              field="address"
-              errors={state.errors}
-            />
+          <form className="checkoutForm" onSubmit={handleSubmit} ref={form}>
+            {inputData.map((data, index) => {
+              return (
+                <TextInput
+                  key={index}
+                  label={data.label}
+                  htmlFor={data.htmlFor}
+                  id={data.id}
+                  name={data.name}
+                  value={values[data.value]}
+                  onChange={(e) => setFieldValue(data.value, e.target.value)}
+                  touched={touched[data.value]}
+                  placeholder={data.placeholder}
+                  onBlur={handleBlur}
+                  error={errors[data.value]}
+                  // {...formik.getFieldProps(data.value)}
+                />
+              );
+            })}
+
             <label htmlFor="instruction">Special Instructions</label>
             <textarea
-              name="Instruction"
+              name="instruction"
               rows={5}
-              placeholder="Enter text here..."
+              placeholder="Enter instructions here..."
+              error={errors["instructions"]}
+              value={values["instructions"]}
+              onChange={(e) => setFieldValue("instructions", e.target.value)}
+              onBlur={handleBlur}
+              id="instruction"
+              // {...formik.getFieldProps("instructions")}
             ></textarea>
-            <ValidationError
-              prefix="Instruction"
-              field="instruction"
-              errors={state.errors}
-            />
+
             <label htmlFor="items">Items Bought</label>
-            <ul id="items" name="Items Bought">
+            <ul id="items" name="items">
               {cart.map((c, index) => {
                 return (
                   <li key={index}>
                     {c.name} - {c.qty}
                     <input
                       type="hidden"
-                      name="Items Bought"
+                      name={`items`}
                       value={`${c.name} - ${c.qty}`}
                     ></input>
-                    <ValidationError
-                      prefix="items"
-                      field="items"
-                      errors={state.errors}
-                    />
                   </li>
                 );
               })}
             </ul>
             <button
               type="submit"
-              disabled={state.submitting}
+              disabled={formik.isSubmitting || !formik.isValid}
               className="submitButton"
             >
               Submit

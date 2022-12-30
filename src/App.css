@@ -91,7 +91,7 @@ h2 {
   font-size: 20px;
 }
 
-.form {
+.checkoutForm {
   display: flex;
   flex-direction: column;
 }
