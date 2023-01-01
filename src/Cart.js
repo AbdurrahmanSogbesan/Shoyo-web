@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import RiceBowlIcon from "@mui/icons-material/RiceBowl";
+import NextArrow from "./components/Icon/icons/nextArrow";
+import PreviousArrow from "./components/Icon/icons/prevArrow";
 
 function Cart() {
   const drinks = [
@@ -76,9 +78,10 @@ function Cart() {
     infinite: true,
     dots: false,
     slidesToScroll: 1,
-    // autoplay: true,
-    // autoplaySpeed: 2000,
-    // pauseOnHover: true,
+    lazyLoad: true,
+
+    nextArrow: <NextArrow />,
+    prevArrow: <PreviousArrow />,
     responsive: [
       {
         breakpoint: 1400,

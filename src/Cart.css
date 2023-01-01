@@ -201,8 +201,12 @@ label {
   color: #868686;
 }
 
-.drink-cards {
-  /* display : flex; */
+.slick-prev {
+  left: 70px !important;
+}
+
+.slick-next {
+  right: 20px !important;
 }
 
 @media (max-width: 650px) {
@@ -235,5 +239,15 @@ label {
   .available-drinks {
     margin-top: 40px;
     padding-left: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .slick-prev {
+    left: 6px !important;
+  }
+
+  .slick-next {
+    right: 4px !important;
   }
 }
