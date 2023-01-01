@@ -1,0 +1,83 @@
+.login {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.container-left {
+  flex: 0.45;
+  padding: 0 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.shoyo-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #868686;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.sign-in {
+  color: #868686;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.small-text {
+  color: #bdc3c7;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.yogurt {
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 30px;
+}
+
+.login-button {
+  background-color: #6d7ae0 !important;
+  color: white !important;
+  font-weight: bold !important;
+  transition: all ease 0.5s !important;
+  width: 100%;
+  text-transform: initial !important;
+}
+
+.login-button:hover {
+  background-color: white !important;
+  color: #6d7ae0 !important;
+}
+
+.container-right {
+  flex: 0.55;
+  background: #6d7ae0;
+  background-image: url("./images/yogurt.png");
+  background-repeat: space;
+  background-size: 50px 50px;
+}
+
+@media (max-width: 650px) {
+  .container-left {
+    flex: 1;
+  }
+  .container-right {
+    display: none;
+  }
+}

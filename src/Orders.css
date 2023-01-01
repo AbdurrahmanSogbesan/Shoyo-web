@@ -1,0 +1,154 @@
+.orders-container {
+  padding: 40px;
+  background-color: #f3f3f3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.orders-overlay {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.orders {
+  width: 100%;
+  overflow-x: scroll;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--vc-colors-bg-fill), var(--tw-bg-opacity));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0/0.1), 0 2px 4px -2px rgb(0 0 0/0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  max-width: 1100px;
+  scrollbar-width: none;
+}
+
+.orders::-webkit-scrollbar {
+  display: none;
+}
+
+table {
+  width: 100%;
+  table-layout: auto;
+  --tw-border-opacity: 1;
+  border-color: rgb(51 52 54 / var(--tw-border-opacity));
+  text-align: left;
+  vertical-align: middle;
+  display: table;
+  border-collapse: collapse;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: hidden;
+}
+
+table::-webkit-scrollbar {
+  display: none;
+}
+
+td,
+th {
+  padding: 10px;
+  text-align: left;
+  margin: 0;
+}
+
+.table-row {
+  cursor: pointer;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.table-row:last-child {
+  border-width: 0 !important;
+}
+
+.arrow-column {
+  display: flex;
+  align-items: center;
+  transition: all ease 0.6s;
+}
+
+tbody tr {
+  background: white;
+}
+
+tbody tr:nth-child(2n) {
+  background-color: #f9f6ff;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background-color: #6d7ae0;
+  color: white;
+  padding: 16px 24px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.75rem 1.5rem;
+}
+
+.items-column {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 120px;
+}
+
+.hidden-table-content {
+  border-top: 1px dashed #6d7ae0;
+}
+
+.data-row {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.data-title {
+  color: #6d7ae0;
+}
+
+.data-content {
+  margin-left: 6px;
+}
+
+.empty-row {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.nav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.logo-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #868686;
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .orders-container {
+    padding: 20px;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+  .logo-name {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
