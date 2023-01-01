@@ -12,30 +12,34 @@ function DrinkCard({
   add,
   subtract,
   itemCount,
+  description,
 }) {
   return (
-    <div
-      className="container"
-      style={{
-        background: `linear-gradient(${backgroundColor}, ${gradientColor})`,
-      }}
-    >
-      <span className="drinkTitle">{title}</span>
-      <div className="backgroundCirlce"></div>
-      <div className="drinkImage">
-        <img src={Bottle} alt="bottle" />
+    <div className="overlay">
+      <div
+        className="container"
+        style={{
+          background: `linear-gradient(${backgroundColor}, ${gradientColor})`,
+        }}
+      >
+        <span className="drinkTitle">{title}</span>
+        <div className="backgroundCirlce"></div>
+        <div className="drinkImage">
+          <img src={Bottle} alt="bottle" />
+        </div>
+        <div className="cart">
+          <ButtonGroup className="buttonGroup">
+            <Button onClick={subtract}>
+              <RemoveIcon fontSize="small" />
+            </Button>
+            <Button>{itemCount}</Button>
+            <Button onClick={add}>
+              <AddIcon fontSize="small" />
+            </Button>
+          </ButtonGroup>
+        </div>
       </div>
-      <div className="cart">
-        <ButtonGroup className="buttonGroup">
-          <Button onClick={subtract}>
-            <RemoveIcon fontSize="small" />
-          </Button>
-          <Button>{itemCount}</Button>
-          <Button onClick={add}>
-            <AddIcon fontSize="small" />
-          </Button>
-        </ButtonGroup>
-      </div>
+      <span className="drink-desc">{description}</span>
     </div>
   );
 }

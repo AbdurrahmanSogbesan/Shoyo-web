@@ -12,7 +12,7 @@ function Sidebar({ badgeContent = 0, children }) {
       customBurgerIcon={
         <IconButton aria-label="cart">
           <Badge badgeContent={badgeContent} color="secondary" showZero>
-            <Icon icon="cart" fill="white" width={35} height={35} />
+            <Icon icon="cart" fill="#868686" width={35} height={35} />
           </Badge>
         </IconButton>
       }

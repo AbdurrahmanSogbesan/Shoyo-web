@@ -1,7 +1,13 @@
+.overlay {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
 .container {
   margin: 0;
   width: 100%;
-  height: 96vh;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +15,13 @@
   padding: 20px 0;
   background-size: cover;
   position: relative;
+  border-radius: 8px;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0/0.1), 0 2px 4px -2px rgb(0 0 0/0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  margin-bottom: 5px;
 }
 
 .drinkTitle {
@@ -35,8 +48,8 @@
 }
 
 .drinkImage img {
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 355px;
 }
 
 .cart {
@@ -47,4 +60,9 @@
 
 .buttonGroup {
   margin-bottom: 10px;
+}
+
+.drink-desc {
+  font-size: 18px;
+  color: white;
 }

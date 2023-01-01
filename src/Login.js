@@ -5,7 +5,7 @@ import "./Login.css";
 import { useDispatch } from "react-redux";
 import { login } from "./features/appSlice";
 import { useNavigate } from "react-router-dom";
-import Yogurt from "./images/yogurt.png";
+// import Yogurt from "./images/yogurt.png";
 import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 import GoogleIcon from "@mui/icons-material/Google";
 import { toast } from "react-toastify";

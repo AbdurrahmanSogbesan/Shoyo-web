@@ -79,3 +79,10 @@
     width: 300px !important;
   }
 }
+
+@media (max-width: 340px) {
+  .bm-burger-button {
+    top: 40px;
+    right: 5px;
+  }
+}

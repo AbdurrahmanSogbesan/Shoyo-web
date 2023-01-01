@@ -10,14 +10,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import checkoutSchema from "./schemas/checkout";
 import { auth, db } from "./firebase/firebase";
-import { addDoc, collection, Firestore } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { useEffect } from "react";
 import TextInput from "./components/TextInput";
 import emailjs from "@emailjs/browser";
 import { selectUser } from "./features/appSlice";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 
 function Cart() {
   const drinks = [
@@ -26,36 +27,48 @@ function Cart() {
       title: "Strawberry",
       backgroundColor: "#D4311B",
       gradientColor: "pink",
+      description:
+        "Our most iconic cake, reimagined. A top-secret strawberry and watermelon syrup with Milk Lab Almond Milk combine for a transcendent sip, straight from heaven",
     },
     {
       id: 1,
       title: "Blueberry",
       backgroundColor: "purple",
       gradientColor: "pink",
+      description:
+        "A decadent hot chocolate inspired by our Chocolate Mirage Cake. Rooibos Tea, caramel and Madagascan Manjari Chocolate combine for a unique butterscotch flavour",
     },
     {
       id: 2,
       title: "Apple",
       backgroundColor: "#2A9C0C",
       gradientColor: "lightgreen",
+      description:
+        "A twist on the classic espresso blend. Never bitter, perfect for all your milk coffees and those who like their espresso with a kick.",
     },
     {
       id: 3,
       title: "Banana",
       backgroundColor: "#BEB218",
       gradientColor: "yellow",
+      description:
+        "Your new summer favourite. Only available when mangoes are in season, this blend is a must-try for all mango lovers.  ",
     },
     {
       id: 4,
       title: "Pineapple",
       backgroundColor: "coral",
       gradientColor: "yellow",
+      description:
+        "Fresh pineapple juice, blended with our signature milk tea. This is the perfect drink for those who love a sweet and sour taste",
     },
     {
       id: 5,
       title: "Orange",
       backgroundColor: "orange",
       gradientColor: "yellow",
+      description:
+        "A mix of orange juice and our signature milk tea. It is sweet and sour, and is perfect for those who love a refreshing drink",
     },
   ];
   var settings = {
@@ -72,13 +85,19 @@ function Cart() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          centerPadding: "60px",
+          className: "center",
+          centerMode: true,
         },
       },
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
+          centerPadding: "60px",
+          className: "center",
+          centerMode: true,
         },
       },
       {
@@ -86,6 +105,9 @@ function Cart() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerPadding: "60px",
+          className: "center",
+          centerMode: true,
         },
       },
       {
@@ -271,6 +293,16 @@ function Cart() {
     setCart(filteredCart);
   };
   const navigate = useNavigate();
+  const goToOrdersPage = () => {
+    const isAdmin = user?.payload?.email === "abdurrahman0803@gmail.com";
+    isAdmin
+      ? navigate("/orders")
+      : toast.error(
+          "You are not authorized to view this page",
+          { position: toast.POSITION.TOP_CENTER },
+          { autoClose: 10000 }
+        );
+  };
 
   return (
     <div className="app" id="outer-container">
@@ -299,7 +331,7 @@ function Cart() {
             })}
           </ul>
 
-          <span onClick={() => navigate("/orders")} className="ordersLink">
+          <span onClick={goToOrdersPage} className="ordersLink">
             Go to Orders page
           </span>
           <h2>Checkout</h2>
@@ -361,7 +393,13 @@ function Cart() {
           </form>
         </div>
       </Sidebar>
-      <div id="page-wrap">
+      <div className="logo">
+        <span className="logo-name">
+          <RiceBowlIcon
+            sx={{ fontSize: "28px", color: "#6d7ae0", mr: "10px" }}
+          />
+          Shoyo's Creamery
+        </span>
         <Button
           variant="contained"
           color="primary"
@@ -371,22 +409,33 @@ function Cart() {
         >
           Sign Out
         </Button>
+      </div>
+      <span onClick={goToOrdersPage} className="ordersLink orderLink2">
+        Orders
+      </span>
 
-        <Slider {...settings}>
-          {drinks.map((drink, index) => {
-            return (
-              <DrinkCard
-                key={index}
-                title={drink.title}
-                backgroundColor={drink.backgroundColor}
-                gradientColor={drink.gradientColor}
-                itemCount={getItemCount(drink.id)}
-                add={() => addToCart(drink.id, drink.title)}
-                subtract={() => reduceCart(drink.id)}
-              />
-            );
-          })}
-        </Slider>
+      <div id="page-wrap">
+        <span className="available-drinks"> Available Drinks</span>
+
+        <span className="drink-cards">
+          <Slider {...settings}>
+            {drinks.map((drink, index) => {
+              return (
+                <DrinkCard
+                  key={index}
+                  title={drink.title}
+                  backgroundColor={drink.backgroundColor}
+                  gradientColor={drink.gradientColor}
+                  description={drink.description}
+                  itemCount={getItemCount(drink.id)}
+                  add={() => addToCart(drink.id, drink.title)}
+                  subtract={() => reduceCart(drink.id)}
+                />
+              );
+            })}
+          </Slider>
+        </span>
+
         <ToastContainer limit={1} />
       </div>
     </div>

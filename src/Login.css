@@ -67,10 +67,9 @@
 
 .container-right {
   flex: 0.55;
-  background: #6d7ae0;
-  background-image: url("./images/yogurt.png");
-  background-repeat: space;
-  background-size: 50px 50px;
+  background: url("https://wallpapercave.com/wp/wp9255945.jpg") #6d7ae0 top
+    right no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 650px) {

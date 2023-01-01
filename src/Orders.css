@@ -137,6 +137,7 @@ td {
   font-weight: bold;
   color: #868686;
   cursor: pointer;
+  z-index: 999;
 }
 
 @media (max-width: 650px) {

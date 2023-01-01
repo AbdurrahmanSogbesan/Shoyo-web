@@ -7,14 +7,38 @@ body {
 
 .app {
   margin: 0;
+  height: 100%;
+  background: linear-gradient(white, #6d7ae0);
+}
+
+.logo {
+  padding: 27px 15px;
+  padding: 27px 0 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.available-drinks {
+  padding-left: 100px;
+  font-size: 25px;
+  color: black;
+  margin-top: 20px;
+}
+
+#page-wrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   height: 100vh;
 }
 
 .logout-button {
-  position: absolute !important;
-  top: 27px;
-  left: 15px;
   z-index: 999;
+  margin-left: 10px !important;
+}
+
+.slick-slider {
+  padding: 20px 0 20px 100px;
 }
 
 .slick-prev {
@@ -161,10 +185,24 @@ label {
   cursor: pointer;
   transition: all 0.5s ease-in;
   text-decoration: none;
+  display: none;
 }
 
 .ordersLink:hover {
   text-decoration: underline;
+}
+
+.orderLink2 {
+  position: absolute;
+  display: inherit;
+  top: 42px;
+  right: 70px;
+  font-size: 20px;
+  color: #868686;
+}
+
+.drink-cards {
+  /* display : flex; */
 }
 
 @media (max-width: 650px) {
@@ -181,5 +219,21 @@ label {
   }
   #items {
     display: block;
+  }
+  .slick-slider {
+    padding: 20px;
+  }
+  .logo {
+    flex-direction: column;
+  }
+  .orderLink2 {
+    display: none !important;
+  }
+  .ordersLink {
+    display: inherit;
+  }
+  .available-drinks {
+    margin-top: 40px;
+    padding-left: 20px;
   }
 }
