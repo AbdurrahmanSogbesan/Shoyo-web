@@ -1,3 +1,8 @@
+# Drinks Cart App
+
+This is a simple cart application for a drinks vendor. It has a login page, cart page and orders page. The orders page is only accessible by authorised users, and at the moment that's just me 🤭.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
